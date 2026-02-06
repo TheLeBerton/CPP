@@ -10,14 +10,15 @@ std::string	getUserAnswer(std::string question)
 {
 	std::string	answer;
 
-	while (answer.empty())
+	while ( answer.empty() )
 	{
 		std::cout << std::left << std::setw( 35 ) << question;
-		std::getline(std::cin, answer);
-		if (answer.empty())
+		if ( !std::getline( std::cin, answer ) )
+			exit( 0 );
+		if ( answer.empty() )
 			std::cout << "Answer cannot be empty." << std::endl;
 	}
-	return (answer);
+	return ( answer );
 }
 
 int	getUserChoice( int maxChoices )
@@ -29,13 +30,14 @@ int	getUserChoice( int maxChoices )
 	while (true)
 	{
 		std::cout << "Please enter a number between 1 and " << maxChoices << " : ";
-		std::getline(std::cin, line);
-		if (line.empty())
+		if ( !std::getline( std::cin, line ) )
+			exit( 0 );
+		if ( line.empty() )
 		{
 			std::cout << "Invalid input. Please enter a number." << std::endl;
 			continue ;
 		}
-		std::stringstream ss(line);
+		std::stringstream ss( line );
 		if ( !( ss >> answer ) || !(ss >> std::ws).eof())
 		{
 			std::cout << "Invalid input please enter a number." << std::endl;
