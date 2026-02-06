@@ -1,7 +1,7 @@
 #include <iostream>
-#include <limits>
 #include <sstream>
 #include <string>
+#include <iomanip>
 
 #include "Contact.hpp"
 #include "PhoneBook.hpp"
@@ -64,6 +64,8 @@ void	searchContact( PhoneBook &phoneBook )
 {
 	int	index;
 
+	if ( phoneBook.getContactsSizeCurrent() == 0 )
+		std::cout << "The phone book is empty, please add a contact first" << std::endl;
 	phoneBook.displayContactsAsList();
 	index = getUserChoice( phoneBook.getContactsSizeCurrent() ) - 1;
 	phoneBook.displaySingleContact( phoneBook.getContact( index ) );
@@ -94,11 +96,5 @@ int main( void )
 			searchContact( phoneBook );
 		else if ( userChoice == 3 )
 			exit( isRunning );
-		else
-		{
-			std::cout << "Invalid choice, please try again." << std::endl;
-			std::cout.flush();
-		}
-
 	}
 }
