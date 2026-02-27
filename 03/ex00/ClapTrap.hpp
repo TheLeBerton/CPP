@@ -28,12 +28,12 @@ private:
   int _hitPoints;
   int _energyPoints;
   int _attackDamage;
-  void _logAttack(const std::string &target);
-  void _logAttackFailed(const std::string &target);
-  void _logTakeDamage(unsigned int amount);
-  void _logTakeDamageFailed();
-  void _logBeRepaired(unsigned int amount);
-  void _logBeRepairedFailed();
+  void _logAttack(const std::string &target, const std::string &color);
+  void _logAttackFailed(const std::string &target, const std::string &color);
+  void _logTakeDamage(unsigned int amount, const std::string &color);
+  void _logTakeDamageFailed(const std::string &color);
+  void _logBeRepaired(unsigned int amount, const std::string &color);
+  void _logBeRepairedFailed(const std::string &color);
 };
 
 std::ostream &operator<<(std::ostream &o, ClapTrap const &i);
