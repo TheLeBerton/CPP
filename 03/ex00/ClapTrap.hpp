@@ -3,8 +3,8 @@
 
 #include <string>
 
-# define COLOR "\033[1;34m"
-# define RESET  "\033[0m"
+#define COLOR "\033[1;34m"
+#define RESET "\033[0m"
 
 class ClapTrap {
 public:
@@ -18,6 +18,11 @@ public:
   void takeDamage(unsigned int amount);
   void beRepaired(unsigned int amount);
 
+  std::string getName() const;
+  int getHitPoints() const;
+  int getEnergyPoints() const;
+  int getAttackDamage() const;
+
 private:
   std::string _name;
   int _hitPoints;
@@ -29,7 +34,6 @@ private:
   void _logTakeDamageFailed();
   void _logBeRepaired(unsigned int amount);
   void _logBeRepairedFailed();
-
 };
 
 std::ostream &operator<<(std::ostream &o, ClapTrap const &i);
