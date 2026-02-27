@@ -1,6 +1,8 @@
 #include "ClapTrap.hpp"
 
 #include <iostream>
+#include <limits.h>
+#include <limits>
 
 std::string storyOne[] = {
     "----- Test 1 : The Rise and Fall of Jack the ClapTrap -----",
@@ -150,9 +152,19 @@ void testDeux(void) {
   std::cout << "Will : " << will << std::endl << std::endl;
 }
 
+static void waitForEnter(void) {
+	std::cout << "Press Enter to continue..." << std::endl;
+	std::cin.get();
+}
+
+static void clearScreen() { std::cout << "\033[2J\033[H"; }
+
 int main(void) {
 
-  // tesUno();
+  tesUno();
+  waitForEnter();
+  clearScreen();
   testDeux();
+  waitForEnter();
   return (0);
 }
