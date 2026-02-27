@@ -83,8 +83,9 @@ void ClapTrap::_logAttack(const std::string &target, const std::string &color) {
 
 void ClapTrap::_logAttackFailed(const std::string &target,
                                 const std::string &color) {
-  std::cout << color << "ClapTrap " << RESET << this->_name << " cannot attack "
-            << target << " due to insufficient energy or hit points."
+  std::cout << color << "ClapTrap " << RESET << YELLOW << this->_name
+            << " cannot attack " << target
+            << " due to insufficient energy or hit points." << RESET
             << std::endl;
 }
 
@@ -96,8 +97,8 @@ void ClapTrap::_logTakeDamage(unsigned int amount, const std::string &color) {
 }
 
 void ClapTrap::_logTakeDamageFailed(const std::string &color) {
-  std::cout << color << "ClapTrap " << RESET << this->_name
-            << " is already destroyed and cannot take more damage."
+  std::cout << color << "ClapTrap " << RESET << YELLOW << this->_name
+            << " is already destroyed and cannot take more damage." << RESET
             << std::endl;
 }
 
@@ -108,9 +109,9 @@ void ClapTrap::_logBeRepaired(unsigned int amount, const std::string &color) {
 }
 
 void ClapTrap::_logBeRepairedFailed(const std::string &color) {
-  std::cout << color << "ClapTrap " << RESET << this->_name
+  std::cout << color << "ClapTrap " << RESET << YELLOW << this->_name
             << " cannot repair due to insufficient energy or hit points."
-            << std::endl;
+            << RESET << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &o, ClapTrap const &i) {
