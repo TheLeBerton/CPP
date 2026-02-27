@@ -2,29 +2,22 @@
 
 #include <iostream>
 
-ClapTrap::ClapTrap() {
-  this->_name = "default";
-  this->_hitPoints = 10;
-  this->_energyPoints = 10;
-  this->_attackDamage = 0;
+ClapTrap::ClapTrap()
+    : _name("default"), _hitPoints(10), _energyPoints(10), _attackDamage(0) {
   std::cout << "Entering " << COLOR << "ClapTrap " << _name << RESET
             << " default constructor" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) {
-  this->_name = name;
-  this->_hitPoints = 10;
-  this->_energyPoints = 10;
-  this->_attackDamage = 0;
+ClapTrap::ClapTrap(std::string name)
+    : _name(name.empty() ? "default" : name), _hitPoints(10), _energyPoints(10),
+      _attackDamage(0) {
   std::cout << "Entering " << COLOR << "ClapTrap " << _name << RESET
             << " parameterized constructor" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap &other) {
-  this->_name = other._name;
-  this->_hitPoints = other._hitPoints;
-  this->_energyPoints = other._energyPoints;
-  this->_attackDamage = other._attackDamage;
+ClapTrap::ClapTrap(const ClapTrap &other)
+    : _name(other._name), _hitPoints(other._hitPoints),
+      _energyPoints(other._energyPoints), _attackDamage(other._attackDamage) {
   std::cout << "Entering " << COLOR << "ClapTrap " << _name << RESET
             << " copy constructor. Copying from " << other._name << std::endl;
 }
@@ -34,10 +27,10 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &other) {
             << " copy assignment operator. Copying from " << other._name
             << std::endl;
   if (this != &other) {
-    this->_name = other._name;
-    this->_hitPoints = other._hitPoints;
-    this->_energyPoints = other._energyPoints;
-    this->_attackDamage = other._attackDamage;
+    _name = other._name;
+    _hitPoints = other._hitPoints;
+    _energyPoints = other._energyPoints;
+    _attackDamage = other._attackDamage;
   }
   return (*this);
 }
