@@ -3,7 +3,8 @@
 #include <iostream>
 
 ClapTrap::ClapTrap() {
-  std::cout << "Entering ClapTrap default constructor" << std::endl;
+  std::cout << "Entering " << COLOR << "ClapTrap" << RESET
+            << " default constructor" << std::endl;
   this->_name = "default";
   this->_hitPoints = 10;
   this->_energyPoints = 10;
@@ -11,7 +12,8 @@ ClapTrap::ClapTrap() {
 }
 
 ClapTrap::ClapTrap(std::string name) {
-  std::cout << "Entering ClapTrap parameterized constructor" << std::endl;
+  std::cout << "Entering " << COLOR << "ClapTrap" << RESET
+            << " parameterized constructor" << std::endl;
   this->_name = name;
   this->_hitPoints = 10;
   this->_energyPoints = 10;
@@ -19,7 +21,8 @@ ClapTrap::ClapTrap(std::string name) {
 }
 
 ClapTrap::ClapTrap(const ClapTrap &other) {
-  std::cout << "Entering ClapTrap copy constructor" << std::endl;
+  std::cout << "Entering " << COLOR << "ClapTrap" << RESET
+            << " copy constructor" << std::endl;
   this->_name = other._name;
   this->_hitPoints = other._hitPoints;
   this->_energyPoints = other._energyPoints;
@@ -27,7 +30,8 @@ ClapTrap::ClapTrap(const ClapTrap &other) {
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &other) {
-  std::cout << "Entering ClapTrap copy assignment operator" << std::endl;
+  std::cout << "Entering " << COLOR << "ClapTrap" << RESET
+            << " copy assignment constructor" << std::endl;
   if (this != &other) {
     this->_name = other._name;
     this->_hitPoints = other._hitPoints;
@@ -38,19 +42,16 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &other) {
 }
 
 ClapTrap::~ClapTrap() {
-  std::cout << "Entering ClapTrap destructor" << std::endl;
+  std::cout << "Entering " << COLOR << "ClapTrap" << RESET << " destructor"
+            << std::endl;
 }
 
 void ClapTrap::attack(const std::string &target) {
   if (this->_energyPoints > 0 && this->_hitPoints > 0) {
-    std::cout << "ClapTrap " << this->_name << " attacks " << target
-              << ", causing " << this->_attackDamage << " points of damage!"
-              << std::endl;
+    this->_logAttack(target);
     this->_energyPoints--;
   } else {
-    std::cout << "ClapTrap " << this->_name
-              << " cannot attack due to insufficient energy or hit points."
-              << std::endl;
+    this->_logAttackFailed(target);
   }
 }
 
@@ -59,13 +60,9 @@ void ClapTrap::takeDamage(const unsigned int amount) {
     this->_hitPoints -= amount;
     if (this->_hitPoints < 0)
       this->_hitPoints = 0;
-    std::cout << "ClapTrap " << this->_name << " takes " << amount
-              << " points of damage! Remaining hit points: " << this->_hitPoints
-              << std::endl;
+    _logTakeDamage(amount);
   } else {
-    std::cout << "ClapTrap " << this->_name
-              << " is already destroyed and cannot take more damage."
-              << std::endl;
+    _logTakeDamageFailed();
   }
 }
 
@@ -73,12 +70,45 @@ void ClapTrap::beRepaired(const unsigned int amount) {
   if (this->_energyPoints > 0 && this->_hitPoints > 0) {
     this->_hitPoints += amount;
     this->_energyPoints--;
-    std::cout << "ClapTrap " << this->_name << " repairs itself for " << amount
-              << " points! Current hit points: " << this->_hitPoints
-              << std::endl;
+    _logBeRepaired(amount);
   } else {
-    std::cout << "ClapTrap " << this->_name
-              << " cannot repair due to insufficient energy or hit points."
-              << std::endl;
+    _logBeRepairedFailed();
   }
+}
+
+void ClapTrap::_logAttack(const std::string &target) {
+  std::cout << COLOR << "ClapTrap " << RESET << this->_name << " attacks "
+            << target << ", causing " << this->_attackDamage
+            << " points of damage!" << std::endl;
+}
+
+void ClapTrap::_logAttackFailed(const std::string &target) {
+  std::cout << COLOR << "ClapTrap " << RESET << this->_name << " cannot attack "
+            << target << " due to insufficient energy or hit points."
+            << std::endl;
+}
+
+void ClapTrap::_logTakeDamage(unsigned int amount) {
+  std::cout << COLOR << "ClapTrap " << RESET << this->_name << " takes "
+            << amount
+            << " points of damage! Remaining hit points: " << this->_hitPoints
+            << std::endl;
+}
+
+void ClapTrap::_logTakeDamageFailed() {
+  std::cout << COLOR << "ClapTrap " << RESET << this->_name
+            << " is already destroyed and cannot take more damage."
+            << std::endl;
+}
+
+void ClapTrap::_logBeRepaired(unsigned int amount) {
+  std::cout << COLOR << "ClapTrap " << RESET << this->_name
+            << " repairs itself for " << amount
+            << " points! Current hit points: " << this->_hitPoints << std::endl;
+}
+
+void ClapTrap::_logBeRepairedFailed() {
+  std::cout << COLOR << "ClapTrap " << RESET << this->_name
+            << " cannot repair due to insufficient energy or hit points."
+            << std::endl;
 }
