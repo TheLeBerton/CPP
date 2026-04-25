@@ -1,0 +1,29 @@
+name: "Exercise"
+description: "Track an exercise in a CPP module"
+title: "CPP0X-ex0X"
+labels: ["type: feat"]
+body:
+  - type: input
+    id: objective
+    attributes:
+      label: Objective
+      placeholder: "What this module introduces"
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      placeholder: "Authorized / forbidden by this module"
+    validations:
+      required: false
+  - type: checkboxes
+    id: checkbox
+    attributes:
+      label: Done when
+      options:
+        - label: "Compiles without warnings"
+        - label: "Tested manually"
+    validations:
+      required: true
+
