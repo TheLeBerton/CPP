@@ -2,7 +2,7 @@ NAME = account
 CC = c++
 CFLAGS = -Wall
 
-SRCS = tests.cpp Account.cpp
+SRCS = Account.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
