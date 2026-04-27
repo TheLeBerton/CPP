@@ -2,11 +2,11 @@ NAME = phonebook
 CC = c++
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = main.cpp Contact.cpp PhoneBook.cpp
+SRCS = main.cpp Contact.cpp PhoneBook.cpp Program.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
-HEADERS = Contact.hpp PhoneBook.hpp
+HEADERS = Contact.hpp PhoneBook.hpp Program.hpp
 
 RM = rm -f
 
@@ -26,4 +26,8 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+run: re
+	@clear
+	./$(NAME)
+
+.PHONY: all clean fclean re run
