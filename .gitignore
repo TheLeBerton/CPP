@@ -41,5 +41,6 @@
 *.dwo
 
 # Executables
+megaphone
 phonebook
 account
