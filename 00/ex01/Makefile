@@ -30,4 +30,4 @@ run: re
 	@clear
 	./$(NAME)
 
-.PHONY: all clean fclean re run
+.PHONY: all $(NAME) clean fclean re run
