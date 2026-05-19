@@ -8,28 +8,36 @@ Program::Program () : _is_running (true) {
 }
 
 void Program::run () {
-    std::string choice;
+    std::string cmd;
 
     while (_is_running) {
-        std::cout << "Commands:" << std::endl;
-        std::cout << "\t1. ADD" << std::endl;
-        std::cout << "\t2. SEARCH" << std::endl;
-        std::cout << "\t3. EXIT" << std::endl;
-
-        choice = _getField ("Select command ( 1-3 ): ");
-
-        if (choice == "ADD" || choice == "1")
-            _add ();
-        else if (choice == "SEARCH" || choice == "2")
-            _search ();
-        else if (choice == "EXIT" || choice == "3")
-            _exit ();
-        else
-            std::cout << "[ ERROR ] Invalid command, please select between 1 "
-                         "and 3 or type the comamnd."
-                      << std::endl;
+        _print_commands ();
+        cmd = _getField ("Select command ( 1-3 ): ");
+        _handle_command (cmd);
     }
 }
+
+
+void Program::_print_commands (void) {
+    std::cout << "Commands:" << std::endl;
+    std::cout << "\t1. ADD" << std::endl;
+    std::cout << "\t2. SEARCH" << std::endl;
+    std::cout << "\t3. EXIT" << std::endl;
+}
+
+void Program::_handle_command (std::string cmd) {
+    if (cmd == "ADD" || cmd == "1")
+        _add ();
+    else if (cmd == "SEARCH" || cmd == "2")
+        _search ();
+    else if (cmd == "EXIT" || cmd == "3")
+        _exit ();
+    else
+        std::cout << "[ ERROR ] Invalid command, please select between 1 "
+                     "and 3 or type the comamnd."
+                  << std::endl;
+}
+
 
 std::string Program::_getField (const std::string& prompt) {
     std::string field;
@@ -53,7 +61,7 @@ std::string Program::_truncate (const std::string& field) {
     return (field.substr (0, 9) + ".");
 }
 
-void Program::_add () {
+void Program::_add (void) {
     std::string firstName     = _getField ("Enter your first name: ");
     std::string lastName      = _getField ("Enter your last name: ");
     std::string nickName      = _getField ("Enter your nickname: ");
@@ -70,18 +78,18 @@ void Program::_add () {
         std::cout << "Added contact successfully." << std::endl;
 }
 
-void Program::_displayHeaderShort () {
-    std::cout << std::setw (10) << std::right << "Index";
-    std::cout << "|";
-
-    std::cout << std::setw (10) << std::right << "First name";
-    std::cout << "|";
-
-    std::cout << std::setw (10) << std::right << "Last name";
-    std::cout << "|";
-
-    std::cout << std::setw (10) << std::right << "Nickname";
-    std::cout << "|" << std::endl;
+void Program::_displayHeaderShort (void) {
+    std::string columns[4]{
+        "Index",
+        "First Name",
+        "Last Name",
+        "Nickname",
+    };
+    for (int i = 0; i < 4; i++) {
+        std::cout << std::setw (10) << std::right << columns[i];
+        std::cout << "|";
+    }
+    std::cout << std::endl;
 }
 
 void Program::_displayContactShort (const Contact* contact, int idx) {
@@ -106,7 +114,7 @@ void Program::_displayContactLong (const Contact* contact) {
     std::cout << "Darkest secret:\t" << contact->darkestSecret () << std::endl;
 }
 
-void Program::_search () {
+void Program::_search (void) {
     if (_phoneBook.count () == 0) {
         std::cout << "[ WARNING ]: Phone book is empty." << std::endl;
         return;
@@ -143,7 +151,7 @@ void Program::_search () {
     _displayContactLong (_phoneBook.contact (std::atoi (idx.c_str ()) - 1));
 }
 
-void Program::_exit () {
+void Program::_exit (void) {
     std::string yn;
     std::cout
     << "[ WARNING ] Closing PhoneBook, all contacts will be deleted forever."
