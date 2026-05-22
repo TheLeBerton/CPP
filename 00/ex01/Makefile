@@ -50,4 +50,4 @@ test: re
 	echo; echo "Passed: $$pass, Failed: $$fail"
 
 
-.PHONY: all $(NAME) clean fclean re test
+.PHONY: all clean fclean re test
