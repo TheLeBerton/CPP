@@ -8,7 +8,6 @@ HEAD := Zombie.hpp
 NAME := zomb
 
 all: $(NAME)
-	./$(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
@@ -24,5 +23,8 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+test: $(NAME)
+	@./$(NAME)
 
 .PHONY: all clean fclean re
