@@ -9,9 +9,9 @@ $(NAME):
 	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
 
 clean:
+	rm -f $(NAME)
 
 fclean: clean
-	rm -f $(NAME)
 
 re: fclean all
 
@@ -28,4 +28,4 @@ test: all
 	./$(NAME) "Test " number " THREE you see ?"
 	@echo
 
-.PHONY: all $(NAME) clean fclean re test
+.PHONY: all clean fclean re test
