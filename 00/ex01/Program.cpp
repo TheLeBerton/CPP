@@ -14,6 +14,8 @@ void Program::run () {
     while (_is_running) {
         _print_commands ();
         cmd = _getField ("Select command ( 1-3 ): ");
+        if (!_is_running)
+            break;
         _handle_command (cmd);
     }
 }
@@ -43,13 +45,16 @@ void Program::_handle_command (std::string cmd) {
 std::string Program::_getField (const std::string& prompt) {
     std::string field;
 
+    if (!_is_running)
+        return ("");
     std::cout << prompt;
-    std::getline (std::cin, field);
-
-    while (field.empty ()) {
+    while (!std::getline (std::cin, field) || field.empty ()) {
+        if (!std::cin) {
+            _is_running = false;
+            return ("");
+        }
         std::cout << "[ ERROR ] Field cannot be empty" << std::endl;
         std::cout << prompt;
-        std::getline (std::cin, field);
     }
 
     return (field);
@@ -68,6 +73,9 @@ void Program::_add (void) {
     std::string nickName      = _getField ("Enter your nickname: ");
     std::string phoneNumber   = _getField ("Enter your phone number: ");
     std::string darkestSecret = _getField ("Enter your darkest secret: ");
+
+    if (!_is_running)
+        return;
 
     Contact contact (firstName, lastName, nickName, phoneNumber, darkestSecret);
 
@@ -127,7 +135,10 @@ void Program::_search (void) {
 
     std::string idx;
     std::cout << "Enter index ( 1-" << _phoneBook.count () << " or 'b' to go back ): ";
-    std::getline (std::cin, idx);
+    if (!std::getline (std::cin, idx)) {
+        _is_running = false;
+        return;
+    }
 
     bool correct = false;
     while (!correct) {
@@ -146,7 +157,10 @@ void Program::_search (void) {
             std::cout << "[ ERROR ] Index must be an integer between 1 and "
                       << _phoneBook.count () << std::endl;
             std::cout << "Enter index ( 1-" << _phoneBook.count () << " or 'b' to go back ): ";
-            std::getline (std::cin, idx);
+            if (!std::getline (std::cin, idx)) {
+                _is_running = false;
+                return;
+            }
         }
     }
     _displayContactLong (_phoneBook.contact (std::atoi (idx.c_str ()) - 1));
@@ -158,11 +172,17 @@ void Program::_exit (void) {
     << "[ WARNING ] Closing PhoneBook, all contacts will be deleted forever."
     << std::endl;
     std::cout << "Are you sure about that ? ( y/n ): ";
-    std::getline (std::cin, yn);
+    if (!std::getline (std::cin, yn)) {
+        _is_running = false;
+        return;
+    }
     while (yn != "y" && yn != "n") {
         std::cout
         << "[ ERROR ] Please choose between 'y' or 'n' and press 'Enter': ";
-        std::getline (std::cin, yn);
+        if (!std::getline (std::cin, yn)) {
+            _is_running = false;
+            return;
+        }
     }
     if (yn == "n")
         return;
