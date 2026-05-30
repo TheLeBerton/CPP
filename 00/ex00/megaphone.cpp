@@ -29,7 +29,7 @@ static void _print_str_uppercase (char* str) {
     int i = 0;
 
     while (str[i]) {
-        std::cout << ((unsigned char)std::toupper (str[i]));
+        std::cout << (char)std::toupper ((unsigned char)str[i]);
         i++;
     }
 }
