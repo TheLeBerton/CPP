@@ -1,5 +1,6 @@
 #include "Program.hpp"
 
+#include <cstdlib>
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -79,7 +80,7 @@ void Program::_add (void) {
 }
 
 void Program::_displayHeaderShort (void) {
-    std::string columns[4]{
+    std::string columns[4] = {
         "Index",
         "First Name",
         "Last Name",
