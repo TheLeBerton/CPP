@@ -16,16 +16,16 @@ fclean: clean
 re: fclean all
 
 test: all
-	@echo -e "\n- subject test 1"
+	@printf "\n- subject test 1\n"
 	./$(NAME) "shhhhh.. I think the students are asleep..."
-	@echo -e "\n- subject test 2"
+	@printf "\n- subject test 2\n"
 	./$(NAME) Damnit " ! " "Sorry students, I thought this thing was off."
-	@echo -e "\n- subject test 3"
+	@printf "\n- subject test 3\n"
 	./$(NAME)
-	@echo -e "\n- Testing with one argument"
+	@printf "\n- Testing with one argument\n"
 	./$(NAME) "Test number 2"
-	@echo -e "\n- Testing with multiple arguments"
+	@printf "\n- Testing with multiple arguments\n"
 	./$(NAME) "Test " number " THREE you see ?"
-	@echo
+	@printf "\n"
 
 .PHONY: all clean fclean re test
